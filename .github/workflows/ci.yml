@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ecommerce_user
+          POSTGRES_PASSWORD: ecommerce_password
+          POSTGRES_DB: ecommerce_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ecommerce_user -d ecommerce_db"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      APP_NAME: Enterprise E-commerce AI Agent
+      APP_VERSION: 0.1.0
+      APP_ENV: testing
+      DEBUG: "false"
+      DATABASE_URL: postgresql+psycopg://ecommerce_user:ecommerce_password@localhost:5432/ecommerce_db
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run database migrations
+        run: alembic upgrade head
+
+      - name: Seed test data
+        run: python -m scripts.seed_database
+
+      - name: Run tests
+        run: pytest -v
