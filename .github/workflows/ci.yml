@@ -26,11 +26,18 @@ jobs:
           --health-retries 5
 
     env:
-      APP_NAME: Enterprise E-commerce AI Agent
-      APP_VERSION: 0.1.0
-      APP_ENV: testing
-      DEBUG: "false"
-      DATABASE_URL: postgresql+psycopg://ecommerce_user:ecommerce_password@localhost:5432/ecommerce_db
+    APP_NAME: Enterprise E-commerce AI Agent
+    APP_VERSION: 0.1.0
+    APP_ENV: testing
+    DEBUG: "false"
+
+    DATABASE_URL: postgresql+psycopg://ecommerce_user:ecommerce_password@localhost:5432/ecommerce_db
+
+    LLM_PROVIDER: groq
+    LLM_MODEL: dummy-model
+    GROQ_API_KEY: dummy-key
+
+    CHECKPOINT_DATABASE_URL: postgresql://ecommerce_user:ecommerce_password@localhost:5432/ecommerce_db
 
     steps:
       - name: Checkout repository
