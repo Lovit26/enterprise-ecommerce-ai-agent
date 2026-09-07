@@ -34,6 +34,14 @@ services:
       APP_VERSION: 0.1.0
       APP_ENV: development
       DEBUG: "true"
+      
+      LLM_PROVIDER: ${LLM_PROVIDER}
+      LLM_MODEL: ${LLM_MODEL}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+
+      CHECKPOINT_DATABASE_URL: postgresql://ecommerce_user:ecommerce_password@postgres:5432/ecommerce_db
+
+      
 
       DATABASE_URL: postgresql+psycopg://ecommerce_user:ecommerce_password@postgres:5432/ecommerce_db
 

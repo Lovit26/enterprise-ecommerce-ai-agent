@@ -1,0 +1,42 @@
+[
+  {
+    "query": "What is the status of order ORD-10001?",
+    "expected_tool": "get_order"
+  },
+  {
+    "query": "Show me details for ORD-10004.",
+    "expected_tool": "get_order"
+  },
+  {
+    "query": "Where is ORD-10003?",
+    "expected_tool": "get_shipping_status"
+  },
+  {
+    "query": "What is the tracking number for ORD-10003?",
+    "expected_tool": "get_shipping_status"
+  },
+  {
+    "query": "When will ORD-10003 arrive?",
+    "expected_tool": "get_shipping_status"
+  },
+  {
+    "query": "Can I return ORD-10001?",
+    "expected_tool": "check_return_eligibility"
+  },
+  {
+    "query": "Is ORD-10002 still eligible for a return?",
+    "expected_tool": "check_return_eligibility"
+  },
+  {
+    "query": "Can I get a refund for ORD-10005?",
+    "expected_tool": "check_return_eligibility"
+  },
+  {
+    "query": "Hello!",
+    "expected_tool": null
+  },
+  {
+    "query": "Thanks for your help.",
+    "expected_tool": null
+  }
+]

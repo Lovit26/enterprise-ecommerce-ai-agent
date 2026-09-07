@@ -6,6 +6,8 @@ from backend.api.routes.orders import router as orders_router
 from backend.core.config import settings
 from backend.db.dependencies import get_db
 
+from backend.api.routes.chat import router as chat_router
+
 
 app = FastAPI(
     title=settings.app_name,
@@ -14,7 +16,7 @@ app = FastAPI(
 
 
 app.include_router(orders_router)
-
+app.include_router(chat_router)
 
 @app.get("/health")
 def health_check():
