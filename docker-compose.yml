@@ -1,0 +1,49 @@
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: ecommerce_postgres
+
+    environment:
+      POSTGRES_USER: ecommerce_user
+      POSTGRES_PASSWORD: ecommerce_password
+      POSTGRES_DB: ecommerce_db
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecommerce_user -d ecommerce_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: ecommerce_api
+
+    environment:
+      APP_NAME: Enterprise E-commerce AI Agent
+      APP_VERSION: 0.1.0
+      APP_ENV: development
+      DEBUG: "true"
+
+      DATABASE_URL: postgresql+psycopg://ecommerce_user:ecommerce_password@postgres:5432/ecommerce_db
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
+volumes:
+  postgres_data:
